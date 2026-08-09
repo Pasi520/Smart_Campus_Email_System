@@ -18,9 +18,31 @@ app.get('/', (req, res) => {
 });
 
 // Mysql Database Test router
+app.get('/api/test-db', async(req, res) =>{
+    try {
+        const [row] = await db.query('SELECT 1 AS result');
 
+        res.json({
+            success: true,
+            message: 'Successfully',
+            result: row[0]
+        });
+    }
+
+    catch(error){
+        console.error('Connection error', error);
+
+        res.status(500).json({
+            success: false,
+            message: 'Connection failed'
+        })
+        
+    }
+});
 
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
