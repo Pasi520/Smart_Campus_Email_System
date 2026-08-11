@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 
 const db = require('./config/db');
+const studentRoutes = require('./routes/studentRoutes');
 
 const app = express();
 
@@ -39,6 +40,9 @@ app.get('/api/test-db', async(req, res) =>{
         
     }
 });
+
+// student routes
+app.use('api/students', studentRoutes);
 
 // Start server
 app.listen(PORT, () => {
