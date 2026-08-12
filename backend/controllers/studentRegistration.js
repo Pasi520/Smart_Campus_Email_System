@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const {generateEmail} = require('../services/emailService');
 
 const register = async(req,res) => {
     try{
@@ -9,15 +10,10 @@ const register = async(req,res) => {
             course,
             batch,
             phone,
-            status,
-            dob,
-            gender,
-            address,
-            guardian_name,
-            guardian_phone,
-            enrollment_date,
-            graduation_year
+            status
         } = req.body;
+
+        const campusEmail = generateEmail(student_no);
 
         // if required field
         if(!user_id || !student_no || !full_name || !course || !batch) {
@@ -29,10 +25,8 @@ const register = async(req,res) => {
 
         const [result] = await db.query(
             `INSERT INTO students
-            (user_id, student_no, full_name, course, batch, phone, status,
-             dob, gender, address, guardian_name, guardian_phone,
-             enrollment_date, graduation_year)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            (user_id, student_no, full_name, course, batch, phone, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
                 user_id,
                 student_no,
@@ -40,21 +34,16 @@ const register = async(req,res) => {
                 course,
                 batch,
                 phone || null,
-                status || 'active',
-                dob || null,
-                gender || null,
-                address || null,
-                guardian_name || null,
-                guardian_phone || null,
-                enrollment_date || null,
-                graduation_year || null
+                status || 'active'
+                
             ]
         );
 
         res.status(201).json({
             success: true,
             message: 'Student registered successfully',
-            student_id: result.insertId
+            student_id: result.insertId,
+            campus_email: campusEmail
         });
 
     }
