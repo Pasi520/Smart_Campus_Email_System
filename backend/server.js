@@ -44,6 +44,10 @@ app.get('/api/test-db', async(req, res) =>{
 // student routes
 app.use('/api/students', studentRoutes);
 
+// check email service
+const emailRoutes = require('./routes/emailRoutes');
+app.use('/api/email',emailRoutes);
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
