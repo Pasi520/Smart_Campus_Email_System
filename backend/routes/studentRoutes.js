@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const {register,getStudents,getStudentId} = require('../controllers/studentRegistration');
+const {register,getStudents,getStudentNo} = require('../controllers/studentRegistration');
 
 router.post('/',register);
 router.get('/',getStudents);
-router.get('/:id',getStudentId);
+router.get('/:studentNo',getStudentNo);
 
 module.exports = router;

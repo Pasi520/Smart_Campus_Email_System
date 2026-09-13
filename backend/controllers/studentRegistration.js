@@ -83,23 +83,23 @@ const getStudents = async (req,res) => {
 };
 
 // get one student row
-const getStudentId = async(req, res) =>{
+const getStudentNo = async(req, res) =>{
     try {
 
-        const studentId = Number(req.params.id);
+        const {studentNo} = req.params;
 
         // validate studend ID
-        if( !Number.isInteger(studentId) || studentId <= 0){
+        if( !studentNo){
             return res.status(400).json({
                 success: false,
-                message: 'Invalid student ID'
+                message: 'Invalid student Number'
             });
         }
 
         // select studentId
         const[rows] = await db.query(
-            `SELECT * FROM students WHERE student_id = ?`,
-            [studentId]
+            `SELECT * FROM students WHERE student_no = ?`,
+            [studentNo]
         );
 
         // student not found
@@ -128,5 +128,5 @@ const getStudentId = async(req, res) =>{
 module.exports = {
     register,
     getStudents,
-    getStudentId 
+    getStudentNo
 };
