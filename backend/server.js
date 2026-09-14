@@ -44,9 +44,9 @@ app.get('/api/test-db', async(req, res) =>{
 // student routes
 app.use('/api/students', studentRoutes);
 
-// check email service
+// email-account service
 const emailRoutes = require('./routes/emailRoutes');
-app.use('/api/email',emailRoutes);
+app.use('/api/email-accounts',emailRoutes);
 
 // Start server
 app.listen(PORT, () => {

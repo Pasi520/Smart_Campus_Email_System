@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const bcrypt = request('bcrypt');
+const bcrypt = require('bcrypt');
 
 const generateTempPassowrd = (length = 12) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
